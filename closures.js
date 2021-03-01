@@ -130,7 +130,7 @@ function motivation( firstname, lastname ) {
   return message;
 }
 
-var greeting = motivation('Billy', 'Bob'); // 'You're doing awesome keep it up Billy Bob.
+var greeting = motivation('Billy', 'Bob'); // 'You're doing awesome, keep it up Billy Bob.
 
 
 
