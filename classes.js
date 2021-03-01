@@ -30,7 +30,18 @@
 */
 
 //Code Here
+class Employee{
+  constructor(first_name, last_name, email, age){
+    this.first_name = first_name
+    this.last_name = last_name
+    this.email = email
+    this.age = age
+  }
+  makeWidget(){
+    return `${this.first_name} ${this.last_name} Widget`
+  }
 
+}
 
 ////////// PROBLEM 2 //////////
 
@@ -48,7 +59,19 @@
 */
 
 //Code Here
-
+class Manager extends Employee{
+  constructor(first_name, last_name, email, age, reports){
+    super(first_name, last_name, email, age)
+    this.reports = []
+  }
+  hire(new_employee){
+    this.reports.push(new_employee)
+  }
+  fire(index){
+    this.reports.splice(index, 1)
+  }
+  
+}
 
 ////////// PROBLEM 3 //////////
 
@@ -72,7 +95,41 @@
 */
 
 //Code Here
-
+class ProgressiveManager extends Manager{
+  constructor(first_name, last_name, email, age, reports, title){
+    super(first_name, last_name, email, age, reports)
+    this.title = 'Not a manager'
+    this.bonus = 0
+  }
+    
+   updateTitle(){
+     let repLength = this.reports.length
+     if (repLength === 0 ){
+      this.title = 'Not a manager'
+      return this
+    }else if (repLength > 0 && repLength< 4){
+      this.title = 'Barely Manager'
+      
+    }else if (repLength > 3 && repLength < 11){
+      this.title = 'Mostly Manager'
+    }else if (repLength > 10 && repLength < 51){
+      this.title = 'Manager'
+    }else if (repLength > 50 && repLength < 101){
+      this.title = 'Manager Plus'
+    }else {
+      this.title = 'Bestest Manager'
+    }
+  }
+  hire(new_employee){
+    super.hire(new_employee)
+    this.updateTitle()
+  }
+  fire(index){
+    super.fire(index)
+    this.bonus += 100
+  }
+  
+}
 
 
 ////////// PROBLEM 4 - Black Diamond //////////
@@ -99,5 +156,26 @@
 */
 
 //Code Here
+class Machine{
+  constructor(){
+  this.widgets_made_count = 0
+  this.wear_and_tear_count = 0
+  this.needs_reboot = false
+  }
 
+  makeWidgets(num){
+    this.widgets_made_count += num
+    let wear_and_tear = Math.floor(num / 50)
+    this.wear_and_tear_count += wear_and_tear
+  }
+  fixMachine(){
+    this.needs_reboot = true
+  }
+  reboot(){
+    return () => {
+      this.wear_and_tear_count -= 10
+      this.needs_reboot = false
+    }
+  }
+}
 
